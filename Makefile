@@ -6,7 +6,7 @@
 #    By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/26 18:49:53 by miguel-f          #+#    #+#              #
-#    Updated: 2025/05/16 19:07:10 by miguel-f         ###   ########.fr        #
+#    Updated: 2025/05/16 20:05:33 by miguel-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 HEADERS = -I ./libs -I $(MLX42_PATH)/include/MLX42 -I $(LIBFT_PATH)
 
-SRCS = utils.c so_long.c map.c 
+SRCS = img_window.c map_check.c map.c moves.c so_long.c text_img.c utils.c
 
 SRCDIR = src/
 OBJDIR = obj/

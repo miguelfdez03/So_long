@@ -6,120 +6,117 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:39:19 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 19:43:11 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:52:40 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	is_rectangular(char **map)
+void	flood_fill(t_game *game, t_point pos)
 {
-	int	len;
-	int	i;
-
-	i = 0;
-	len = ft_strlen(map[0]);
-	while (map[i])
+	if (pos.x >= game->columns || pos.y >= game->lines
+		|| game->map_copy[pos.y][pos.x] == '1'
+		|| game->map_copy[pos.y][pos.x] == '*')
+		return ;
+	if (game->map_copy[pos.y][pos.x] == 'C')
+		game->c_copy++;
+	if (game->map_copy[pos.y][pos.x] == 'E')
 	{
-		if (ft_strlen(map[i]) != (size_t)len)
-			return (0);
-		i++;
+		game->e_copy++;
+		game->e_position.x = pos.x;
+		game->e_position.y = pos.y;
 	}
-	return (1);
+	game->map_copy[pos.y][pos.x] = '*';
+	flood_fill(game, (t_point){pos.x + 1, pos.y});
+	flood_fill(game, (t_point){pos.x - 1, pos.y});
+	flood_fill(game, (t_point){pos.x, pos.y - 1});
+	flood_fill(game, (t_point){pos.x, pos.y + 1});
 }
 
-static int	check_first_last_row(char **map, int len, int last)
+int	object_checker(t_game *game, int i, int j)
 {
-	int	j;
-
-	j = 0;
-	while (j < len)
+	while (j < game->lines - 1)
 	{
-		if (map[0][j] != '1')
-			return (0);
-		if (map[last][j] != '1')
-			return (0);
-		j++;
-	}
-	return (1);
-}
-
-static int	is_walled(char **map)
-{
-	int	i;
-	int	len;
-	int	last;
-
-	i = 0;
-	len = ft_strlen(map[0]);
-	last = 0;
-	while (map[last])
-		last++;
-	last--;
-	if (!check_first_last_row(map, len, last))
-		return (0);
-	i = 1;
-	while (i < last)
-	{
-		if (map[i][0] != '1')
-			return (0);
-		if (map[i][len - 1] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static int	is_valid_char(char c)
-{
-	if (c == '0' || c == '1' || c == 'P' || c == 'E' || c == 'C')
-		return (1);
-	return (0);
-}
-
-static int	has_required_elements(char **map)
-{
-	int	player;
-	int	exit;
-	int	collect;
-	int	i;
-	int	j;
-
-	player = 0;
-	exit = 0;
-	collect = 0;
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
+		if (i == game->columns - 1)
 		{
-			if (!is_valid_char(map[i][j]))
-				return (0);
-			if (map[i][j] == 'P')
-				player++;
-			if (map[i][j] == 'E')
-				exit++;
-			if (map[i][j] == 'C')
-				collect++;
+			i = 0;
 			j++;
+		}
+		if (game->map[j][i] == 'C')
+			game->coin++;
+		else if (game->map[j][i] == 'E')
+		{
+			game->e_position.x = i;
+			game->e_position.y = j;
+			game->exit++;
+		}
+		else if (game->map[j][i] == 'P')
+		{
+			game->p_position.x = i;
+			game->p_position.y = j;
+			game->player++;
 		}
 		i++;
 	}
-	if (player != 1 || exit < 1 || collect < 1)
-		return (0);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
-int	is_valid_map(char **map)
+int	check_wall(t_game *game, int i, int j)
 {
-	if (!map || !map[0])
-		return (0);
-	if (!is_rectangular(map))
-		return (0);
-	if (!is_walled(map))
-		return (0);
-	if (!has_required_elements(map))
-		return (0);
-	return (1);
+	while (j < game->lines - 1)
+	{
+		if (i == game->columns - 1)
+		{
+			i = 0;
+			j++;
+		}
+		if (game->map[j][0] != '1' || game->map[j][game->columns - 1] != '1')
+			return (ft_error("The map is not enclosed"));
+		else if (game->map[0][i] != '1' || game->map[game->lines - 1][i] != '1')
+			return (ft_error("The map is not enclosed"));
+		else if (game->map[j][i] != '0' && game->map[j][i] != '1' &&
+			game->map[j][i] != 'C' && game->map[j][i] != 'P'
+			&& game->map[j][i] != 'E')
+			return (ft_error("Invalid object"));
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	way_checker(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = game->p_position.x;
+	y = game->p_position.y;
+	if (game->map[x + 1][y] == '1' && game->map[x - 1][y] == '1'
+	&& game->map[x][y + 1] == '1' && game->map[x][y - 1] == '1' )
+		return (ft_error("Invalid position of the player"));
+	else
+	{
+		x = game->e_position.x;
+		y = game->e_position.y;
+		if (game->map[x + 1][y] == '1' && game->map[x - 1][y] == '1'
+			&& game->map[x][y + 1] == '1' && game->map[x][y - 1] == '1' )
+			return (ft_error("Invalid position of the exit"));
+		else
+			return (EXIT_SUCCESS);
+	}
+}
+
+int	map_checker(t_game *game)
+{
+	if (check_wall(game, 0, 0) == 1)
+		return (EXIT_FAILURE);
+	if (object_checker(game, 0, 0) == 1)
+		return (EXIT_FAILURE);
+	flood_fill(game, game->p_position);
+	if (game->player != 1 || game->exit != 1 || game->coin == 0)
+		return (ft_error("Invalid number of objects"));
+	if (game->exit != game->e_copy)
+		return (ft_error("Exit not reachable"));
+	if (game->coin != game->c_copy)
+		return (ft_error("Coin not reachable"));
+	return (EXIT_SUCCESS);
 }
