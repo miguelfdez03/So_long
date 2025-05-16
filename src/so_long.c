@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:29:44 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/04/07 18:11:05 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:37:06 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	printf("The map is valid.\n");
-	// Here you can continue with the game logic
 	free_map(map);
 	return (0);
 }

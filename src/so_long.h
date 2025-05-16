@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:27:32 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/04/07 18:10:07 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 19:44:10 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@
 # include <stdbool.h>
 
 int	ft_error(char *str);
+int is_valid_map(char **map);
 #endif
