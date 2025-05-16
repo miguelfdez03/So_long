@@ -6,11 +6,12 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:02:02 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 19:58:02 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:06:34 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+# include "../libs/libft/get_next_line.h"
 
 void	free_maps(t_game *game)
 {

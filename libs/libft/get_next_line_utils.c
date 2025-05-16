@@ -6,13 +6,13 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:42:40 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/02/10 17:58:38 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:16:19 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr2(const char *s, int c)
 {
 	while (*s)
 	{
@@ -28,7 +28,7 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup2(const char *s)
 {
 	char	*new_str;
 	size_t	len;
@@ -50,7 +50,7 @@ char	*ft_strdup(const char *s)
 	return (new_str);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy2(char *dst, const char *src, size_t size)
 {
 	const char	*src_start;
 	size_t		src_len;
@@ -72,7 +72,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (src_len);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen2(const char *s)
 {
 	size_t	len;
 
@@ -82,7 +82,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin2(char const *s1, char const *s2)
 {
 	char	*result;
 	size_t	len1;
@@ -91,13 +91,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
+	len1 = ft_strlen2(s1);
+	len2 = ft_strlen2(s2);
 	total_len = len1 + len2 + 1;
 	result = (char *)malloc(total_len * sizeof(char));
 	if (!result)
 		return (NULL);
-	ft_strlcpy(result, s1, total_len);
-	ft_strlcpy(result + len1, s2, len2 + 1);
+	ft_strlcpy2(result, s1, total_len);
+	ft_strlcpy2(result + len1, s2, len2 + 1);
 	return (result);
 }

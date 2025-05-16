@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:27:32 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 20:01:10 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:03:27 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_game
 int		ft_error(char *str);
 void	player_move(mlx_key_data_t keydata, void *param);
 int		image_to_window(t_game *game);
+int		text_to_img(t_game *game);
 int		read_map(t_game *game, char *map_name);
 void	free_maps(t_game *game);
 int		map_checker(t_game *game);

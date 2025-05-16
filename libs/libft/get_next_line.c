@@ -6,13 +6,13 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:42:28 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/02/17 21:48:06 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:17:50 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr2(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	s_len;
@@ -20,16 +20,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
+	s_len = ft_strlen2(s);
 	if (start >= s_len)
-		return (ft_strdup(""));
+		return (ft_strdup2(""));
 	copy_len = len;
 	if (copy_len > s_len - start)
 		copy_len = s_len - start;
 	substr = (char *)malloc((copy_len + 1) * sizeof(char));
 	if (!substr)
 		return (NULL);
-	ft_strlcpy(substr, s + start, copy_len + 1);
+	ft_strlcpy2(substr, s + start, copy_len + 1);
 	return (substr);
 }
 
@@ -50,13 +50,13 @@ static char	*read_and_store(int fd, char *stored_text, char *read_buffer)
 			break ;
 		read_buffer[bytes_read] = '\0';
 		if (!stored_text)
-			stored_text = ft_strdup("");
+			stored_text = ft_strdup2("");
 		if (!stored_text)
 			return (NULL);
 		tmp = stored_text;
-		stored_text = ft_strjoin(tmp, read_buffer);
+		stored_text = ft_strjoin2(tmp, read_buffer);
 		free(tmp);
-		if (!stored_text || ft_strchr(stored_text, '\n'))
+		if (!stored_text || ft_strchr2(stored_text, '\n'))
 			break ;
 	}
 	return (stored_text);
@@ -72,7 +72,7 @@ static char	*extract_line(char *current_line)
 		i++;
 	if (current_line[i] == '\0')
 		return (NULL);
-	stored_text = ft_substr(current_line, i + 1, ft_strlen(current_line) - i);
+	stored_text = ft_substr2(current_line, i + 1, ft_strlen2(current_line) - i);
 	if (!stored_text || *stored_text == '\0')
 	{
 		free(stored_text);

@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:43:03 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/02/10 18:01:36 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:17:06 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-size_t	ft_strlen(const char *s);
+char	*ft_strdup2(const char *s);
+char	*ft_strjoin2(char const *s1, char const *s2);
+char	*ft_strchr2(const char *s, int c);
+char	*ft_substr2(char const *s, unsigned int start, size_t len);
+size_t	ft_strlcpy2(char *dst, const char *src, size_t size);
+size_t	ft_strlen2(const char *s);
 
 #endif
