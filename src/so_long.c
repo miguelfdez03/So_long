@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:29:44 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:41:22 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:46:26 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	init_struct(t_game *game)
 	game->c_copy = 0;
 	game->e_copy = 0;
 	game->player = 0;
+	game->moves_counter = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -57,6 +58,7 @@ int	main(int argc, char **argv)
 		return (free_game_maps(g), EXIT_FAILURE);
 	if (load_game_textures(g) == 1 || render_map(g) == 1)
 		return (free_game_maps(g), EXIT_FAILURE);
+	update_moves_counter(g);
 	mlx_key_hook(g->mlx, &handle_key_input, g);
 	mlx_loop(g->mlx);
 	mlx_terminate(g->mlx);

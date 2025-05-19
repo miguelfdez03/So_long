@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:53:09 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:40:19 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:46:26 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	handle_movement(t_game *g, int x, int y, void *img)
 	{
 		update_player_position(g, x, y, img);
 		g->moves++;
+		update_moves_counter(g);
 		ft_printf("Number of movements: %d\n", g->moves);
 	}
 }
