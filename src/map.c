@@ -6,14 +6,14 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:02:02 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 21:06:34 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:42:19 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 # include "../libs/libft/get_next_line.h"
 
-void	free_maps(t_game *game)
+void	free_game_maps(t_game *game)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ void	free_maps(t_game *game)
 	free(game);
 }
 
-static int	readm_columns(char *line, t_game *game, int fd, char *map_name)
+static int	read_map_columns(char *line, t_game *game, int fd, char *map_name)
 {
 	int	i;
 
@@ -68,12 +68,12 @@ static int	readm_columns(char *line, t_game *game, int fd, char *map_name)
 	return (close(fd), free(line), EXIT_SUCCESS);
 }
 
-static int	readm_lines(char *line, t_game *game, int fd, char *map_name)
+static int	read_map_lines(char *line, t_game *game, int fd, char *map_name)
 {
-	fd = open(map_name, 0);
+	fd = open(map_name,	 0);
 	line = get_next_line(fd);
 	if (line == NULL)
-		return (ft_error("The map is empty"));
+		return (print_error("The map is empty"));
 	while (line != NULL)
 	{
 		game->lines++;
@@ -86,7 +86,7 @@ static int	readm_lines(char *line, t_game *game, int fd, char *map_name)
 	if (!game->map || !game->map_copy)
 		return (free(line), EXIT_FAILURE);
 	close(fd);
-	if (readm_columns(line, game, fd, map_name) == 1)
+	if (read_map_columns(line, game, fd, map_name) == 1)
 		return (free(line), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -99,9 +99,9 @@ int	read_map(t_game *game, char *map_name)
 	line = NULL;
 	fd = open(map_name, 0);
 	if (fd < 0)
-		return (ft_error("Could not open the map"));
+		return (print_error("Could not open the map"));
 	close(fd);
-	if (readm_lines(line, game, fd, map_name) == 1)
+	if (read_map_lines(line, game, fd, map_name) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

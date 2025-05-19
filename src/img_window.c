@@ -6,13 +6,13 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:52:06 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 19:56:47 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:41:57 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	image_to_window(t_game *g)
+int	render_map(t_game *g)
 {
 	int	i;
 	int	j;

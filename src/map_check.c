@@ -6,34 +6,34 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:39:19 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/16 19:52:40 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:42:19 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	verify_reachable_positions(t_game_state *game, t_position current_pos)
+void	flood_fill(t_game *game, t_point pos)
 {
-	if (current_pos.x >= game->map_width || current_pos.y >= game->map_height
-		|| game->map_backup[current_pos.y][current_pos.x] == '1'
-		|| game->map_backup[current_pos.y][current_pos.x] == '*')
+	if (pos.x >= game->columns || pos.y >= game->lines
+		|| game->map_copy[pos.y][pos.x] == '1'
+		|| game->map_copy[pos.y][pos.x] == '*')
 		return ;
-	if (game->map_backup[current_pos.y][current_pos.x] == 'C')
-		game->collectibles_reachable++;
-	if (game->map_backup[current_pos.y][current_pos.x] == 'E')
+	if (game->map_copy[pos.y][pos.x] == 'C')
+		game->c_copy++;
+	if (game->map_copy[pos.y][pos.x] == 'E')
 	{
-		game->exit_reachable++;
-		game->exit_pos.x = current_pos.x;
-		game->exit_pos.y = current_pos.y;
+		game->e_copy++;
+		game->e_position.x = pos.x;
+		game->e_position.y = pos.y;
 	}
-	game->map_backup[current_pos.y][current_pos.x] = '*';
-	verify_reachable_positions(game, (t_position){current_pos.x + 1, current_pos.y});
-	verify_reachable_positions(game, (t_position){current_pos.x - 1, current_pos.y});
-	verify_reachable_positions(game, (t_position){current_pos.x, current_pos.y - 1});
-	verify_reachable_positions(game, (t_position){current_pos.x, current_pos.y + 1});
+	game->map_copy[pos.y][pos.x] = '*';
+	flood_fill(game, (t_point){pos.x + 1, pos.y});
+	flood_fill(game, (t_point){pos.x - 1, pos.y});
+	flood_fill(game, (t_point){pos.x, pos.y - 1});
+	flood_fill(game, (t_point){pos.x, pos.y + 1});
 }
 
-int	object_checker(t_game *game, int i, int j)
+int	count_map_objects(t_game *game, int i, int j)
 {
 	while (j < game->lines - 1)
 	{
@@ -61,7 +61,7 @@ int	object_checker(t_game *game, int i, int j)
 	return (EXIT_SUCCESS);
 }
 
-int	check_wall(t_game *game, int i, int j)
+int	validate_map_borders(t_game *game, int i, int j)
 {
 	while (j < game->lines - 1)
 	{
@@ -71,19 +71,19 @@ int	check_wall(t_game *game, int i, int j)
 			j++;
 		}
 		if (game->map[j][0] != '1' || game->map[j][game->columns - 1] != '1')
-			return (ft_error("The map is not enclosed"));
+			return (print_error("The map is not enclosed"));
 		else if (game->map[0][i] != '1' || game->map[game->lines - 1][i] != '1')
-			return (ft_error("The map is not enclosed"));
+			return (print_error("The map is not enclosed"));
 		else if (game->map[j][i] != '0' && game->map[j][i] != '1' &&
 			game->map[j][i] != 'C' && game->map[j][i] != 'P'
 			&& game->map[j][i] != 'E')
-			return (ft_error("Invalid object"));
+			return (print_error("Invalid object"));
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	way_checker(t_game *game)
+int	validate_player_exit_positions(t_game *game)
 {
 	int	x;
 	int	y;
@@ -92,31 +92,31 @@ int	way_checker(t_game *game)
 	y = game->p_position.y;
 	if (game->map[x + 1][y] == '1' && game->map[x - 1][y] == '1'
 	&& game->map[x][y + 1] == '1' && game->map[x][y - 1] == '1' )
-		return (ft_error("Invalid position of the player"));
+		return (print_error("Invalid position of the player"));
 	else
 	{
 		x = game->e_position.x;
 		y = game->e_position.y;
 		if (game->map[x + 1][y] == '1' && game->map[x - 1][y] == '1'
 			&& game->map[x][y + 1] == '1' && game->map[x][y - 1] == '1' )
-			return (ft_error("Invalid position of the exit"));
+			return (print_error("Invalid position of the exit"));
 		else
 			return (EXIT_SUCCESS);
 	}
 }
 
-int	map_checker(t_game *game)
+int	validate_map(t_game *game)
 {
-	if (check_wall(game, 0, 0) == 1)
+	if (validate_map_borders(game, 0, 0) == 1)
 		return (EXIT_FAILURE);
-	if (object_checker(game, 0, 0) == 1)
+	if (count_map_objects(game, 0, 0) == 1)
 		return (EXIT_FAILURE);
-	verify_reachable_positions(game, game->p_position);
+	flood_fill(game, game->p_position);
 	if (game->player != 1 || game->exit != 1 || game->coin == 0)
-		return (ft_error("Invalid number of objects"));
+		return (print_error("Invalid number of objects"));
 	if (game->exit != game->e_copy)
-		return (ft_error("Exit not reachable"));
+		return (print_error("Exit not reachable"));
 	if (game->coin != game->c_copy)
-		return (ft_error("Coin not reachable"));
+		return (print_error("Coin not reachable"));
 	return (EXIT_SUCCESS);
 }
