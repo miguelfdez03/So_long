@@ -52,16 +52,31 @@ typedef struct s_game_state
 	mlx_image_t		*i_c_exit;
 	mlx_texture_t	*t_wall;
 	mlx_image_t		*i_wall;
-	mlx_image_t		*moves_counter;    // Nueva imagen para mostrar movimientos
-	char			*moves_str;        // String para almacenar el texto de movimientos
+	mlx_image_t		*moves_counter;
+	char			*moves_str;
 }	t_game_state;
 
 // Function declarations
+
+// Displays an error message and returns failure status
 int		display_error_message(char *message);
+
+// Handles keyboard input for player movement
 void	handle_player_movement(mlx_key_data_t keydata, void *param);
+
+// Renders all game elements (walls, player, collectibles, etc.) to the window
 int		render_game_elements(t_game_state *game);
+
+// Loads all game textures and converts them to images
 int		load_game_assets(t_game_state *game);
+
+// Reads and parses the map file into game structure
 int		load_map_from_file(t_game_state *game, char *map_path);
+
+// Frees all allocated memory and resources
 void	cleanup_game_resources(t_game_state *game);
+
+// Validates map structure, elements and playability
 int		validate_map(t_game_state *game);
+
 #endif
