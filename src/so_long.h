@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:27:32 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:46:26 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:02:23 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-}	t_point;
+	int				x;
+	int				y;
+}					t_point;
 
 typedef struct s_game
 {
@@ -46,7 +46,7 @@ typedef struct s_game
 	mlx_texture_t	*t_floor;
 	mlx_image_t		*i_floor;
 	mlx_texture_t	*t_player;
-	mlx_image_t		*i_player;	
+	mlx_image_t		*i_player;
 	mlx_texture_t	*t_o_exit;
 	mlx_image_t		*i_o_exit;
 	mlx_texture_t	*t_c_exit;
@@ -54,15 +54,15 @@ typedef struct s_game
 	mlx_texture_t	*t_wall;
 	mlx_image_t		*i_wall;
 	mlx_image_t		*moves_counter;
-}	t_game;
+}					t_game;
 
-int		read_map(t_game *game, char *map_name);
-void	free_game_maps(t_game *game);
-int		validate_map(t_game *game);
-int		load_game_textures(t_game *game);
-int		render_map(t_game *game);
-void	handle_key_input(mlx_key_data_t keydata, void *param);
-int		print_error(char *str);
-void    update_moves_counter(t_game *game);
+int					read_map(t_game *game, char *map_name);
+void				free_game_maps(t_game *game);
+int					validate_map(t_game *game);
+int					load_game_textures(t_game *game);
+int					render_map(t_game *game);
+void				handle_key_input(mlx_key_data_t keydata, void *param);
+int					print_error(char *str);
+void				update_moves_counter(t_game *game);
 
 #endif

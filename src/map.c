@@ -6,12 +6,12 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:02:02 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:42:19 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:02:07 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libs/libft/get_next_line.h"
 #include "so_long.h"
-# include "../libs/libft/get_next_line.h"
 
 void	free_game_maps(t_game *game)
 {
@@ -50,7 +50,7 @@ static int	read_map_columns(char *line, t_game *game, int fd, char *map_name)
 	while (i < game->lines)
 	{
 		game->columns = ft_strlen(line);
-		if (line[game->columns -1] != '\n')
+		if (line[game->columns - 1] != '\n')
 			game->columns++;
 		game->map[i] = ft_calloc(game->columns, sizeof(char *));
 		game->map_copy[i] = ft_calloc(game->columns, sizeof(char *));
@@ -70,7 +70,7 @@ static int	read_map_columns(char *line, t_game *game, int fd, char *map_name)
 
 static int	read_map_lines(char *line, t_game *game, int fd, char *map_name)
 {
-	fd = open(map_name,	 0);
+	fd = open(map_name, 0);
 	line = get_next_line(fd);
 	if (line == NULL)
 		return (print_error("The map is empty"));

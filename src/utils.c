@@ -6,14 +6,14 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:25:31 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:40:19 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:02:33 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int print_error(char *message)
+int	print_error(char *message)
 {
-    ft_printf("Error\n%s\n", message);
-    return (EXIT_FAILURE);
+	ft_printf("Error\n%s\n", message);
+	return (EXIT_FAILURE);
 }
