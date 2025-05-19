@@ -16,11 +16,11 @@ So_long es un pequeño juego 2D donde el jugador debe recolectar todos los colec
 - ESC: Salir del juego
 
 ### Elementos del Juego
-- 🕷️ P: Jugador (Araña)
+- 🕷️ P: Jugador (spiderman)
 - 🕸️ C: Coleccionable (Telaraña)
-- 🚪 E: Salida
+- 🚪 E: Salida (portal)
 - 🧱 1: Muro
-- ⬜ 0: Espacio vacío
+- ⬜ 0: Espacio vacío (suelo)
 
 ## ⚙️ Características
 - Verificación completa de mapas
