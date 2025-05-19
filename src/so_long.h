@@ -19,26 +19,26 @@
 # include <fcntl.h>
 # include <stdbool.h>
 
-typedef struct s_point
+typedef struct s_position
 {
 	int	x;
 	int	y;
-}	t_point;
+}	t_position;
 
-typedef struct s_game
+typedef struct s_game_state
 {
 	char			**map;
-	char			**map_copy;
-	int				lines;
-	int				columns;
-	int				coin;
-	int				c_copy;
-	int				exit;
-	int				e_copy;
-	int				player;
-	t_point			p_position;
-	t_point			e_position;
-	int				moves;
+	char			**map_backup;
+	int				map_height;
+	int				map_width;
+	int				collectibles_count;
+	int				collectibles_reachable;
+	int				exit_count;
+	int				exit_reachable;
+	int				player_count;
+	t_position		player_pos;
+	t_position		exit_pos;
+	int				movement_count;
 	mlx_t			*mlx;
 	mlx_texture_t	*t_coin;
 	mlx_image_t		*i_coin;
@@ -52,13 +52,16 @@ typedef struct s_game
 	mlx_image_t		*i_c_exit;
 	mlx_texture_t	*t_wall;
 	mlx_image_t		*i_wall;
-}	t_game;
+	mlx_image_t		*moves_counter;    // Nueva imagen para mostrar movimientos
+	char			*moves_str;        // String para almacenar el texto de movimientos
+}	t_game_state;
 
-int		ft_error(char *str);
-void	player_move(mlx_key_data_t keydata, void *param);
-int		image_to_window(t_game *game);
-int		text_to_img(t_game *game);
-int		read_map(t_game *game, char *map_name);
-void	free_maps(t_game *game);
-int		map_checker(t_game *game);
+// Function declarations
+int		display_error_message(char *message);
+void	handle_player_movement(mlx_key_data_t keydata, void *param);
+int		render_game_elements(t_game_state *game);
+int		load_game_assets(t_game_state *game);
+int		load_map_from_file(t_game_state *game, char *map_path);
+void	cleanup_game_resources(t_game_state *game);
+int		validate_map(t_game_state *game);
 #endif

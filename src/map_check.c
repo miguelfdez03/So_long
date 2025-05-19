@@ -12,25 +12,25 @@
 
 #include "so_long.h"
 
-void	flood_fill(t_game *game, t_point pos)
+void	verify_reachable_positions(t_game_state *game, t_position current_pos)
 {
-	if (pos.x >= game->columns || pos.y >= game->lines
-		|| game->map_copy[pos.y][pos.x] == '1'
-		|| game->map_copy[pos.y][pos.x] == '*')
+	if (current_pos.x >= game->map_width || current_pos.y >= game->map_height
+		|| game->map_backup[current_pos.y][current_pos.x] == '1'
+		|| game->map_backup[current_pos.y][current_pos.x] == '*')
 		return ;
-	if (game->map_copy[pos.y][pos.x] == 'C')
-		game->c_copy++;
-	if (game->map_copy[pos.y][pos.x] == 'E')
+	if (game->map_backup[current_pos.y][current_pos.x] == 'C')
+		game->collectibles_reachable++;
+	if (game->map_backup[current_pos.y][current_pos.x] == 'E')
 	{
-		game->e_copy++;
-		game->e_position.x = pos.x;
-		game->e_position.y = pos.y;
+		game->exit_reachable++;
+		game->exit_pos.x = current_pos.x;
+		game->exit_pos.y = current_pos.y;
 	}
-	game->map_copy[pos.y][pos.x] = '*';
-	flood_fill(game, (t_point){pos.x + 1, pos.y});
-	flood_fill(game, (t_point){pos.x - 1, pos.y});
-	flood_fill(game, (t_point){pos.x, pos.y - 1});
-	flood_fill(game, (t_point){pos.x, pos.y + 1});
+	game->map_backup[current_pos.y][current_pos.x] = '*';
+	verify_reachable_positions(game, (t_position){current_pos.x + 1, current_pos.y});
+	verify_reachable_positions(game, (t_position){current_pos.x - 1, current_pos.y});
+	verify_reachable_positions(game, (t_position){current_pos.x, current_pos.y - 1});
+	verify_reachable_positions(game, (t_position){current_pos.x, current_pos.y + 1});
 }
 
 int	object_checker(t_game *game, int i, int j)
@@ -111,7 +111,7 @@ int	map_checker(t_game *game)
 		return (EXIT_FAILURE);
 	if (object_checker(game, 0, 0) == 1)
 		return (EXIT_FAILURE);
-	flood_fill(game, game->p_position);
+	verify_reachable_positions(game, game->p_position);
 	if (game->player != 1 || game->exit != 1 || game->coin == 0)
 		return (ft_error("Invalid number of objects"));
 	if (game->exit != game->e_copy)

@@ -12,30 +12,31 @@
 
 #include "so_long.h"
 
-int	ext_checker(char *map_name)
+int	validate_file_extension(char *map_path)
 {
-	int	i;
+	int	length;
 
-	i = ft_strlen(map_name);
-	if ((map_name[i - 1] == 'r' && map_name[i - 2] == 'e')
-		&& (map_name[i - 3] == 'b' && map_name[i - 4] == '.'))
+	length = ft_strlen(map_path);
+	if ((map_path[length - 1] == 'r' && map_path[length - 2] == 'e')
+		&& (map_path[length - 3] == 'b' && map_path[length - 4] == '.'))
 		return (EXIT_SUCCESS);
-	else
-		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
-static void	init_struct(t_game *game)
+static void	initialize_game_state(t_game_state *game)
 {
 	game->map = NULL;
-	game->map_copy = NULL;
-	game->lines = 0;
-	game->columns = 0;
-	game->coin = 0;
-	game->exit = 0;
-	game->moves = 0;
-	game->c_copy = 0;
-	game->e_copy = 0;
-	game->player = 0;
+	game->map_backup = NULL;
+	game->map_height = 0;
+	game->map_width = 0;
+	game->collectibles_count = 0;
+	game->exit_count = 0;
+	game->movement_count = 0;
+	game->collectibles_reachable = 0;
+	game->exit_reachable = 0;
+	game->player_count = 0;
+	game->moves_counter = NULL;
+	game->moves_str = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -44,10 +45,10 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_error("Not enough arguments"));
-	if (ext_checker(argv[1]) == EXIT_FAILURE)
+	if (validate_file_extension(argv[1]) == EXIT_FAILURE)
 		return (ft_error("Not the correct extension"));
 	g = ft_calloc(1, sizeof(t_game));
-	init_struct(g);
+	initialize_game_state(g);
 	if (read_map(g, argv[1]) == EXIT_FAILURE)
 		return (free_maps(g), EXIT_FAILURE);
 	if (map_checker(g) == 1)

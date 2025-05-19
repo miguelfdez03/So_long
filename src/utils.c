@@ -12,8 +12,8 @@
 
 #include "so_long.h"
 
-int	ft_error(char *str)
+int	display_error_message(char *message)
 {
-	ft_printf("ERROR:\n%s\n", str);
+	ft_printf("ERROR:\n%s\n", message);
 	return (EXIT_FAILURE);
 }

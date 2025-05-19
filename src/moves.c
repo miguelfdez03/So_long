@@ -41,19 +41,36 @@ static void	images(t_game *g, int x, int y, void *img)
 		g->p_position.y * 64);
 }
 
+static void	update_moves_display(t_game *g)
+{
+    char *num;
+    char *temp;
+
+    if (g->moves_counter)
+        mlx_delete_image(g->mlx, g->moves_counter);
+    num = ft_itoa(g->moves);
+    temp = ft_strjoin("Moves: ", num);
+    free(num);
+    if (g->moves_str)
+        free(g->moves_str);
+    g->moves_str = temp;
+    g->moves_counter = mlx_put_string(g->mlx, g->moves_str, 10, 10);
+}
+
 static void	keypress(t_game *g, int x, int y, void *img)
 {
-	if (g->map[y][x] == 'E' && g->coin == 0)
-	{
-		mlx_close_window(g->mlx);
-		ft_printf("\nYou have won\n");
-	}
-	else if (g->map[y][x] != '1')
-	{
-		images (g, x, y, img);
-		g->moves++;
-		ft_printf("Number of movements: %d\n", g->moves);
-	}
+    if (g->map[y][x] == 'E' && g->coin == 0)
+    {
+        mlx_close_window(g->mlx);
+        ft_printf("\nYou have won\n");
+    }
+    else if (g->map[y][x] != '1')
+    {
+        images(g, x, y, img);
+        g->moves++;
+        update_moves_display(g);
+        ft_printf("Number of movements: %d\n", g->moves);
+    }
 }
 
 void	player_move(mlx_key_data_t keydata, void *param)
