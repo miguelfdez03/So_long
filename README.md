@@ -58,6 +58,16 @@ Los mapas deben:
 - Contener un jugador (P), una salida (E) y al menos un coleccionable (C)
 - Tener un camino válido hasta todos los coleccionables y la salida
 
+
+Ejemplo de mapa:
+```
+1111111111
+1P00000001
+100C00C001
+1000E00001
+1111111111
+```
+
 ## 🛠️ Estructura del Proyecto
 ```
 .
@@ -72,23 +82,6 @@ Los mapas deben:
 │   └── utils.c        # Funciones auxiliares
 ├── sprites/           # Archivos de imagen para texturas
 └── libs/             # Bibliotecas externas (MLX42, libft)
-```
-
-## 📋 Formato del Mapa
-Los mapas deben:
-- Tener extensión .ber
-- Ser rectangulares
-- Estar rodeados por muros ('1')
-- Contener un jugador (P), una salida (E) y al menos un coleccionable (C)
-- Tener un camino válido hasta todos los coleccionables y la salida
-
-Ejemplo de mapa:
-```
-1111111111
-1P00000001
-100C00C001
-1000E00001
-1111111111
 ```
 
 ## Installation
