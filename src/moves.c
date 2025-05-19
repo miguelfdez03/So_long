@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:53:09 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 18:46:26 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:52:48 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	handle_movement(t_game *g, int x, int y, void *img)
 	if (g->map[y][x] == 'E' && g->coin == 0)
 	{
 		mlx_close_window(g->mlx);
-		ft_printf("\nYou have won\n");
+		ft_printf("\nYou won the Game!!!\n");
 	}
 	else if (g->map[y][x] != '1')
 	{
