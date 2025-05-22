@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+// Actualiza la posición del jugador y maneja la recolección de monedas y la llegada a la salida
 static void	update_player_position(t_game *g, int x, int y, void *img)
 {
 	if (g->map[g->p_position.y][g->p_position.x] == 'E')
@@ -41,6 +42,7 @@ static void	update_player_position(t_game *g, int x, int y, void *img)
 		g->p_position.y * 64);
 }
 
+// Gestiona la lógica del movimiento, incluyendo la victoria y las colisiones
 static void	handle_movement(t_game *g, int x, int y, void *img)
 {
 	if (g->map[y][x] == 'E' && g->coin == 0)
@@ -57,6 +59,7 @@ static void	handle_movement(t_game *g, int x, int y, void *img)
 	}
 }
 
+// Maneja las entradas del teclado (flechas y ESC) y ejecuta los movimientos correspondientes
 void	handle_key_input(mlx_key_data_t keydata, void *param)
 {
 	t_game	*g;

@@ -13,6 +13,7 @@
 #include "../libs/libft/get_next_line.h"
 #include "so_long.h"
 
+// Libera la memoria asignada para los mapas y la estructura del juego
 void	free_game_maps(t_game *game)
 {
 	int	i;
@@ -40,6 +41,7 @@ void	free_game_maps(t_game *game)
 	free(game);
 }
 
+// Lee las columnas del mapa y las almacena en las estructuras map y map_copy
 static int	read_map_columns(char *line, t_game *game, int fd, char *map_name)
 {
 	int	i;
@@ -68,6 +70,7 @@ static int	read_map_columns(char *line, t_game *game, int fd, char *map_name)
 	return (close(fd), free(line), EXIT_SUCCESS);
 }
 
+// Lee el número de líneas del mapa y reserva memoria para almacenarlas
 static int	read_map_lines(char *line, t_game *game, int fd, char *map_name)
 {
 	fd = open(map_name, 0);
@@ -91,6 +94,7 @@ static int	read_map_lines(char *line, t_game *game, int fd, char *map_name)
 	return (EXIT_SUCCESS);
 }
 
+// Función principal para leer el archivo del mapa y almacenarlo en la estructura del juego
 int	read_map(t_game *game, char *map_name)
 {
 	int		fd;

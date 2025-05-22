@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+// Limpia y libera las texturas cargadas
 void	clean_textures(t_game *game)
 {
 	mlx_delete_texture(game->t_coin);
@@ -22,11 +23,13 @@ void	clean_textures(t_game *game)
 	mlx_delete_texture(game->t_wall);
 }
 
+// Wrapper para limpiar las texturas
 void	free_textures(t_game *game)
 {
 	clean_textures(game);
 }
 
+// Carga todas las texturas del juego (sprites) y las convierte en imágenes
 int	load_game_textures(t_game *game)
 {
 	game->t_coin = mlx_load_png("./sprites/spider_web.png");

@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+// Verifica si el archivo del mapa tiene la extensión correcta (.ber)
 int	ext_checker(char *map_name)
 {
 	int	i;
@@ -24,6 +25,7 @@ int	ext_checker(char *map_name)
 		return (EXIT_FAILURE);
 }
 
+// Inicializa todas las variables de la estructura del juego a sus valores iniciales
 static void	init_struct(t_game *game)
 {
 	game->map = NULL;
@@ -39,6 +41,12 @@ static void	init_struct(t_game *game)
 	game->moves_counter = NULL;
 }
 
+// Función principal que inicia el juego:
+// 1. Verifica argumentos y extensión del mapa
+// 2. Inicializa la estructura del juego
+// 3. Lee y valida el mapa
+// 4. Inicializa la ventana y carga texturas
+// 5. Inicia el bucle del juego
 int	main(int argc, char **argv)
 {
 	t_game	*g;
