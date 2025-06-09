@@ -12,7 +12,6 @@
 
 #include "so_long.h"
 
-// Implementa el algoritmo flood fill para verificar si se puede llegar a todos los coleccionables y la salida
 void	flood_fill(t_game *game, t_point pos)
 {
 	if (pos.x >= game->columns || pos.y >= game->lines
@@ -34,7 +33,6 @@ void	flood_fill(t_game *game, t_point pos)
 	flood_fill(game, (t_point){pos.x, pos.y + 1});
 }
 
-// Cuenta la cantidad de objetos en el mapa (monedas, salidas, jugador) y guarda sus posiciones
 int	count_map_objects(t_game *game, int i, int j)
 {
 	while (j < game->lines - 1)
@@ -63,7 +61,6 @@ int	count_map_objects(t_game *game, int i, int j)
 	return (EXIT_SUCCESS);
 }
 
-// Verifica que los bordes del mapa sean válidos (paredes) y que solo contenga caracteres permitidos
 int	validate_map_borders(t_game *game, int i, int j)
 {
 	while (j < game->lines - 1)
@@ -86,7 +83,6 @@ int	validate_map_borders(t_game *game, int i, int j)
 	return (EXIT_SUCCESS);
 }
 
-// Comprueba que el jugador y la salida no estén rodeados completamente por paredes
 int	validate_player_exit_positions(t_game *game)
 {
 	int	x;
@@ -109,7 +105,6 @@ int	validate_player_exit_positions(t_game *game)
 	}
 }
 
-// Función principal de validación del mapa que ejecuta todas las comprobaciones necesarias
 int	validate_map(t_game *game)
 {
 	if (validate_map_borders(game, 0, 0) == 1)

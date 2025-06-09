@@ -6,35 +6,18 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:25:31 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 19:02:33 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/05/29 13:11:24 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// Imprime mensajes de error con un formato específico
 int	print_error(char *message)
 {
 	ft_printf("Error\n%s\n", message);
 	return (EXIT_FAILURE);
 }
 
-// Actualiza el contador de movimientos en la pantalla
-void	update_moves_counter(t_game *game)
-{
-	char	*str;
-	char	*moves;
-
-	if (game->moves_counter != NULL)
-		mlx_delete_image(game->mlx, game->moves_counter);
-	moves = ft_itoa(game->moves);
-	str = ft_strjoin("Moves: ", moves);
-	game->moves_counter = mlx_put_string(game->mlx, str, 10, 10);
-	free(moves);
-	free(str);
-}
-
-// Renderiza el mapa completo colocando cada elemento (suelo, paredes, monedas, etc) en su posición
 int	render_map(t_game *g)
 {
 	int	i;
@@ -60,4 +43,18 @@ int	render_map(t_game *g)
 		j++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+void	update_moves_counter(t_game *game)
+{
+	char	*str;
+	char	*moves;
+
+	if (game->moves_counter != NULL)
+		mlx_delete_image(game->mlx, game->moves_counter);
+	moves = ft_itoa(game->moves);
+	str = ft_strjoin("Moves: ", moves);
+	game->moves_counter = mlx_put_string(game->mlx, str, 10, 10);
+	free(moves);
+	free(str);
 }

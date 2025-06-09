@@ -6,7 +6,7 @@
 /*   By: miguel-f <miguel-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 14:27:32 by miguel-f          #+#    #+#             */
-/*   Updated: 2025/05/19 19:02:23 by miguel-f         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:33:10 by miguel-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int					render_map(t_game *game);
 void				handle_key_input(mlx_key_data_t keydata, void *param);
 int					print_error(char *str);
 void				update_moves_counter(t_game *game);
+void				remove_images(t_game *game);
 
 #endif
